@@ -1,54 +1,54 @@
-﻿Build started 5/19/2017 4:32:03 PM.
+﻿Build started 5/19/2017 6:05:35 PM.
      1>Project "C:\!cti\PI\proiect\SudokuSolver\OpenCVApplication.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (OpenCVApplication.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IOpenCV/Include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\SudokuSolver.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Solver.cpp
          Solver.cpp
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(81): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(82): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(83): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(84): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(85): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(86): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(164): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(209): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(212): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(162): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(207): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(210): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(226): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(228): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(230): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(232): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(234): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(236): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(247): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(249): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(251): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(252): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(254): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(256): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(281): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(279): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(326): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(328): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(330): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(332): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(334): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(336): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(338): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(340): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(342): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(344): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(346): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(348): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(351): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(349): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(350): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(352): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(354): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(356): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(376): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(379): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(382): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(385): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(628): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(670): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(677): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(679): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(681): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(702): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(712): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(713): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(714): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(722): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(723): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(724): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(725): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(374): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(377): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(380): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(383): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(632): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(676): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(683): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(685): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(687): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(708): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(718): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(719): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(720): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(728): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(729): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(730): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\!cti\pi\proiect\sudokusolver\solver.cpp(731): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\!cti\PI\proiect\SudokuSolver\Debug\SudokuSolver.exe" /INCREMENTAL /NOLOGO /LIBPATH:OpenCV/Lib opencv_calib3d2413d.lib opencv_contrib2413d.lib opencv_core2413d.lib opencv_features2d2413d.lib opencv_flann2413d.lib opencv_gpu2413d.lib opencv_highgui2413d.lib opencv_imgproc2413d.lib opencv_legacy2413d.lib opencv_ml2413d.lib opencv_nonfree2413d.lib opencv_objdetect2413d.lib opencv_ocl2413d.lib opencv_photo2413d.lib opencv_stitching2413d.lib opencv_superres2413d.lib opencv_ts2413d.lib opencv_video2413d.lib opencv_videostab2413d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\!cti\PI\proiect\SudokuSolver\Debug\SudokuSolver.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\!cti\PI\proiect\SudokuSolver\Debug\SudokuSolver.lib" /MACHINE:X86 Debug\common.obj
          Debug\Solver.obj
@@ -81,4 +81,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.90
+Time Elapsed 00:00:01.96

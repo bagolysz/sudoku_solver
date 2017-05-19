@@ -6,8 +6,6 @@
 #include <queue>
 #include <time.h>
 
-#define MIN_AREA_THRESHOLD 20
-
 void MyCallBackFunc(int event, int x, int y, int flags, void* param)
 {
 	//More examples: http://opencvexamples.blogspot.com/2014/01/detect-mouse-clicks-and-moves-on-image.html
@@ -396,7 +394,6 @@ int getObjectMinX(Mat src){
 	}
 	return 0;
 }
-
 int getObjectMinY(Mat src){
 	for (int j = 0; j < src.cols; j++){
 		for (int i = 0; i < src.rows; i++){
@@ -406,7 +403,6 @@ int getObjectMinY(Mat src){
 	}
 	return 0;
 }
-
 Point2i getObjectMin(Mat src){
 	return Point2i(getObjectMinY(src), getObjectMinX(src));
 }
@@ -420,7 +416,6 @@ int getObjectMaxX(Mat src){
 	}
 	return 0;
 }
-
 int getObjectMaxY(Mat src){
 	for (int j = src.cols - 1; j >= 0; j--){
 		for (int i = src.rows - 1; i >= 0; i--){
@@ -430,7 +425,6 @@ int getObjectMaxY(Mat src){
 	}
 	return 0;
 }
-
 Point2i getObjectMax(Mat src){
 	return Point2i(getObjectMaxY(src), getObjectMaxX(src));
 }
@@ -591,6 +585,16 @@ void thinning(const cv::Mat& src, cv::Mat& dst)
 	dst *= 255;
 }
 
+int objectPixels(Mat src, int objectColor){
+	int sum = 0;
+	for (int i = 0; i < src.rows; i++)
+		for (int j = 0; j < src.cols; j++){
+			if (src.at<uchar>(i, j) == objectColor)
+				sum++;
+		}
+	return sum;
+}
+
 
 void startSolver(){
 	char fname[MAX_PATH];
@@ -609,7 +613,7 @@ void startSolver(){
 		Mat binarized = blockBinarization(src, (double)1/2); 
 		dilate(binarized, binarized, kernel); 
 
-		imshow("binarized", binarized);
+		//imshow("binarized", binarized);
 				
 		///////////////////////////////////////////
 		// Step 2 - extract largest connected component
@@ -654,8 +658,10 @@ void startSolver(){
 		CvPoint ptBottomLeft = intersectionPoints.at(3);
 
 		// after finding the points, we can extract the puzzle box from the image based on the 4 marginal points
-		int maxLength = (ptBottomLeft.x - ptBottomRight.x)*(ptBottomLeft.x - ptBottomRight.x) + (ptBottomLeft.y - ptBottomRight.y)*(ptBottomLeft.y - ptBottomRight.y);  
-		int temp = (ptTopRight.x - ptBottomRight.x)*(ptTopRight.x - ptBottomRight.x) + (ptTopRight.y - ptBottomRight.y)*(ptTopRight.y - ptBottomRight.y);   
+		int maxLength = (ptBottomLeft.x - ptBottomRight.x)*(ptBottomLeft.x - ptBottomRight.x) + 
+						(ptBottomLeft.y - ptBottomRight.y)*(ptBottomLeft.y - ptBottomRight.y);  
+		int temp = (ptTopRight.x - ptBottomRight.x)*(ptTopRight.x - ptBottomRight.x) + 
+				   (ptTopRight.y - ptBottomRight.y)*(ptTopRight.y - ptBottomRight.y);   
 		
 		if (temp>maxLength) 
 			maxLength = temp;   
@@ -696,7 +702,7 @@ void startSolver(){
 		binarizedPuzzle = extractLargestCC(binarizedPuzzle, false);
 		dilate(binarizedPuzzle, binarizedPuzzle, kernel);
 
-		imshow("Binarized puzzle", binarizedPuzzle);
+		//imshow("Binarized puzzle", binarizedPuzzle);
 
 		// create the elementar box
 		int boxSize = ceil((double)maxLength / 9.0);
@@ -733,8 +739,12 @@ void startSolver(){
 				dilate(boxes[i][j], boxes[i][j], kernel);
 				resizeImg(boxes[i][j], boxes[i][j], 100, false);
 
+				// eliminate from the blank boxes the remained noise
+				// by enforcing a threshold for object area
+				if (objectPixels(boxes[i][j], 255) < 500){
+					boxes[i][j] = Mat::zeros(boxes[i][j].size(), CV_8UC1);
+				}
 
-				
 				// center the digit
 				Point2i min = getObjectMin(boxes[i][j]);
 				Point2i max = getObjectMax(boxes[i][j]);
@@ -770,58 +780,71 @@ void startSolver(){
 		}
 		///////////////////////////////////////////
 		// Step 6 - use template matching to recognize the digits from the elementar boxes
-		
 		// load the template images and compute the distance tranform
 		char name[MAX_PATH];
-		Mat templates[9];
-		for (int k = 0; k < 9; k++){
-			sprintf(name, "template/1_%d.png", k+1);
-			templates[k] = imread(name, CV_LOAD_IMAGE_GRAYSCALE);
+		Mat templates[5][9];
+		for (int i = 0; i < 5; i++)
+			for (int k = 0; k < 9; k++){
+				sprintf(name, "template/%d_%d.png", i+1, k+1);
+				templates[i][k] = imread(name, CV_LOAD_IMAGE_GRAYSCALE);
 
-			distanceTransform(templates[k], templates[k], CV_DIST_L2, CV_DIST_MASK_5);
-			normalize(templates[k], templates[k], 0, 1, NORM_MINMAX);
+				distanceTransform(templates[i][k], templates[i][k], CV_DIST_L2, CV_DIST_MASK_5);
+				normalize(templates[i][k], templates[i][k], 0, 1, NORM_MINMAX);
 
-			//imshow("DT", templates[k]);
-			//waitKey();
-		}
+				//imshow("DT", templates[i][k]);
+				//waitKey();
+			}
 		
+		Mat matrix(9, 9, CV_8U);
+
 		// superimpose the unknown image with the template and compute the pattern matching score
 		for (int i = 0; i < 9; i++){
 			for (int j = 0; j < 9; j++){
 
 				double scores[9];
 				for (int k = 0; k < 9; k++){
-					scores[k] = patternMatchingScore(templates[k], boxes[i][j], 0);
+					scores[k] = 10.0f;
+					for (int m = 0; m < 5; m++){
+						double score = patternMatchingScore(templates[m][k], boxes[i][j], 0);
+						if (scores[k] > score){
+							scores[k] = score;
+						}
+					}
 					//printf("Template %d -- avg: %.4f\n", k + 1, scores[k]);
 				}
 
-				// find the minimul pattern matching score;
+				// find the minimum pattern matching score;
 				if (scores[0] < 1.0){
 					int min_index = 0;
 					for (int k = 1; k < 9; k++){
 						if (scores[k] < scores[min_index])
 							min_index = k;
 					}
-					printf("%d ", min_index + 1);
+					matrix.at<uchar>(i, j) = min_index + 1;
 				}
 				else {
-					printf("  ");
+					matrix.at<uchar>(i, j) = 0;
 				}
 				
-
 				//printf("\n");
 				//imshow("image", boxes[i][j]);
 				//waitKey();
 			}
-			printf("\n");
 		}
 		
 		///////////////////////////////////////////
-		// Step 7 - solve the generated problem using backtracking
+		// Step 7 - draw the obtained numbers 
+		for (int i = 0; i < 9; i++){
+			for (int j = 0; j < 9; j++){
+				if (matrix.at<uchar>(i, j))
+					printf("%d ", matrix.at<uchar>(i, j));
+				else
+					printf("  ");
+			}
+			printf("  \n");
+		}
 
-		///////////////////////////////////////////
-		// Step 8 - draw the solution
-
+		
 		imshow("Original image", src);
 		waitKey();
 
