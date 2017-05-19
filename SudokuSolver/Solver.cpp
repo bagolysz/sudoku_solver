@@ -2,45 +2,10 @@
 //
 
 #include "stdafx.h"
+#include "SolvePuzzle.h"
 #include "common.h"
 #include <queue>
 #include <time.h>
-
-void MyCallBackFunc(int event, int x, int y, int flags, void* param)
-{
-	//More examples: http://opencvexamples.blogspot.com/2014/01/detect-mouse-clicks-and-moves-on-image.html
-	Mat* src = (Mat*)param;
-	if (event == CV_EVENT_LBUTTONDOWN)
-		{
-			printf("Pos(x,y): %d,%d  Color(RGB): %d,%d,%d\n",
-				x, y,
-				(int)(*src).at<Vec3b>(y, x)[2],
-				(int)(*src).at<Vec3b>(y, x)[1],
-				(int)(*src).at<Vec3b>(y, x)[0]);
-		}
-}
-
-void testMouseClick()
-{
-	Mat src;
-	// Read image from file 
-	char fname[MAX_PATH];
-	while (openFileDlg(fname))
-	{
-		src = imread(fname);
-		//Create a window
-		namedWindow("My Window", 1);
-
-		//set the callback function for any mouse event
-		setMouseCallback("My Window", MyCallBackFunc, &src);
-
-		//show the image
-		imshow("My Window", src);
-
-		// Wait until user press some key
-		waitKey(0);
-	}
-}
 
 /*
 This binarization separates the big window into 4 different smaller pictures and binarizes them separately
@@ -595,7 +560,6 @@ int objectPixels(Mat src, int objectColor){
 	return sum;
 }
 
-
 void startSolver(){
 	char fname[MAX_PATH];
 	while (openFileDlg(fname))
@@ -688,14 +652,11 @@ void startSolver(){
 
 		Mat puzzleMatrix = Mat(Size(maxLength, maxLength), CV_8UC1);
 		warpPerspective(src, puzzleMatrix, getPerspectiveTransform(srcP, dstP), Size(maxLength, maxLength));
-
-		imshow("Puzzle", puzzleMatrix);
+		//imshow("Puzzle", puzzleMatrix);
 
 		///////////////////////////////////////////
 		// Step 5 - after finding the puzzle box, we can start extracting the digits from the elementar boxes
-
 		// binarize the image
-		//Mat binarizedPuzzle = binarize(puzzleMatrix, averagePixelValue(puzzleMatrix)*2/3);
 		Mat binarizedPuzzle = blockBinarization(puzzleMatrix, (double)2/3);
 
 		// remove the grid for easier template matching
@@ -711,7 +672,6 @@ void startSolver(){
 		for (int i = 0; i < 9; i++)
 			boxes[i] = new Mat[9];
 		
-
 		// destination points will be always the same
 		Point2f toP[4];
 		toP[0] = Point2f(0, 0);
@@ -795,8 +755,8 @@ void startSolver(){
 				//waitKey();
 			}
 		
-		Mat matrix(9, 9, CV_8U);
-
+		int matrix[9][9];
+		bool fixNumber[9][9];
 		// superimpose the unknown image with the template and compute the pattern matching score
 		for (int i = 0; i < 9; i++){
 			for (int j = 0; j < 9; j++){
@@ -810,9 +770,7 @@ void startSolver(){
 							scores[k] = score;
 						}
 					}
-					//printf("Template %d -- avg: %.4f\n", k + 1, scores[k]);
 				}
-
 				// find the minimum pattern matching score;
 				if (scores[0] < 1.0){
 					int min_index = 0;
@@ -820,31 +778,48 @@ void startSolver(){
 						if (scores[k] < scores[min_index])
 							min_index = k;
 					}
-					matrix.at<uchar>(i, j) = min_index + 1;
+					matrix[i][j] = min_index + 1;
+					fixNumber[i][j] = true;
 				}
 				else {
-					matrix.at<uchar>(i, j) = 0;
+					matrix[i][j] = 0;
+					fixNumber[i][j] = false;
 				}
-				
-				//printf("\n");
-				//imshow("image", boxes[i][j]);
-				//waitKey();
 			}
 		}
 		
 		///////////////////////////////////////////
-		// Step 7 - draw the obtained numbers 
+		// Step 7 - solve the puzzle using backtracking
+		if (SolveSudoku(matrix) == false){
+			printf("Can't find solution for the puzzle!\n");
+		}
+
+		///////////////////////////////////////////
+		// Step 8 - draw the obtained numbers 
 		for (int i = 0; i < 9; i++){
 			for (int j = 0; j < 9; j++){
-				if (matrix.at<uchar>(i, j))
-					printf("%d ", matrix.at<uchar>(i, j));
+				if (matrix[i][j])
+					printf("%d ", matrix[i][j]);
 				else
 					printf("  ");
 			}
 			printf("  \n");
 		}
 
+		int fontFace = FONT_HERSHEY_SIMPLEX;
+		double fontScale = 1;
+		int thickness = 3;
+
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++){
+				int number = matrix[i][j];
+				string text = number == 0 ? "" : std::to_string(number);
+				Point textOrg(j*boxSize, (i+1)*boxSize - boxSize/2);
+				Scalar color = fixNumber[i][j] ? Scalar::all(120) : Scalar::all(60);
+				putText(puzzleMatrix, text, textOrg, fontFace, fontScale, color, thickness, 8);
+			}
 		
+		imshow("Puzzle", puzzleMatrix);
 		imshow("Original image", src);
 		waitKey();
 
