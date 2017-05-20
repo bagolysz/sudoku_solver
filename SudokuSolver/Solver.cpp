@@ -560,7 +560,7 @@ int objectPixels(Mat src, int objectColor){
 	return sum;
 }
 
-void startSolver(){
+double startSolver(){
 	char fname[MAX_PATH];
 	while (openFileDlg(fname))
 	{
@@ -568,6 +568,9 @@ void startSolver(){
 		// Step 0 - load image
 		Mat src = imread(fname, CV_LOAD_IMAGE_GRAYSCALE);
 		
+		// start measuring the time
+		double t = (double) getTickCount();
+
 		// create structural element for morphological operations
 		uchar kernelData[] = { 0, 1, 0, 1, 1, 1, 0, 1, 0 };
 		Mat kernel(3, 3, CV_8UC1, kernelData);
@@ -787,7 +790,8 @@ void startSolver(){
 				}
 			}
 		}
-		
+		t = ((double)getTickCount() - t) / getTickFrequency();
+
 		///////////////////////////////////////////
 		// Step 7 - solve the puzzle using backtracking
 		if (SolveSudoku(matrix) == false){
@@ -819,6 +823,7 @@ void startSolver(){
 				putText(puzzleMatrix, text, textOrg, fontFace, fontScale, color, thickness, 8);
 			}
 		
+		printf("\nElapsed time: %lg[s]\n", t);
 		imshow("Puzzle", puzzleMatrix);
 		imshow("Original image", src);
 		waitKey();
@@ -827,6 +832,8 @@ void startSolver(){
 		for (int i = 0; i < 9; i++)
 			delete[]boxes[i];
 		delete[]boxes;
+
+		return t;
 	}
 }
 
